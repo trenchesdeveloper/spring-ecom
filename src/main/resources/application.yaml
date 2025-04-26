@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: store
+  datasource:
+    url: jdbc:mysql://localhost:3309/store?createDatabaseIfNotExist=true
+    username: root
+    password: root_password
+app.page-size: 10
