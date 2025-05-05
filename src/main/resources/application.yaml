@@ -1,6 +1,7 @@
 spring:
   application:
     name: store
+    port: 8000
   datasource:
     url: jdbc:mysql://localhost:3309/store?createDatabaseIfNotExist=true
     username: root
