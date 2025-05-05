@@ -2,6 +2,7 @@ package com.trenchesdeveloper.store.controllers;
 
 import com.trenchesdeveloper.store.dtos.UserDto;
 import com.trenchesdeveloper.store.entities.User;
+import com.trenchesdeveloper.store.mappers.UserMapper;
 import com.trenchesdeveloper.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @GetMapping
     public Iterable<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail()))
+                .map(userMapper::toDto)
                 .toList();
     }
 
@@ -33,7 +35,7 @@ public class UserController {
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-        var userDto = new UserDto(user.getId(), user.getName(), user.getEmail());
+        var userDto = userMapper.toDto(user);
         return ResponseEntity.ok(userDto);
     }
 }
